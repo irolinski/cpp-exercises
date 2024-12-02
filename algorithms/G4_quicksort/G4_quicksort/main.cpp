@@ -24,17 +24,21 @@ void quicksort (int *tablica, int indexPoczatekTablicy, int indexKoniecTablicy){
     
     //dopilnuj, żeby w czasie pętli nie wyjść poza wyznaczony argumentami obszar
     while (i <= j){
-        //powiększaj lewą stronę aż znajdzie się przed środkiem
+        //póki liczba po lewej jest mniejsza od środka
+        //dodawaj do niej 1 z każdą iteracją
         while(tablica[i] < srodek){
             i++;
         };
-        //zmniejszaj prawą stronę aż znajdzie się przed środkiem
+        //póki liczba po prawej jest większa od środka
+        //odejmuj od niej 1 z każdą iteracją
         while(tablica[j] > srodek){
             j--;
         };
         
-        //upewnij się, że i <= j zanim wykonasz kolejne operacje
+        //jeśli liczba po lewej od środka jest
+        //mniejsza/równa liczbie po prawej od środka
         if(i <= j){
+            // zamień je miejscami
             temp = tablica[i];
             tablica[i] = tablica[j];
             tablica[j] = temp;
@@ -42,6 +46,9 @@ void quicksort (int *tablica, int indexPoczatekTablicy, int indexKoniecTablicy){
             j--;
         };
     };
+    
+    //wywołuj tę funkcję raz po raz póki index z
+    //jednej strony nie będzie równy indexowi z drugiej strony
     
     if (j > indexPoczatekTablicy){
         quicksort(tablica, indexPoczatekTablicy, j);
