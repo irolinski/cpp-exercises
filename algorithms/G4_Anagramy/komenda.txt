@@ -1,1 +1,5 @@
-./oznacz <slownik_ANSI.txt | ./grupuj > anagramy_result.txt
+
+To get anagrams only: 
+
+./oznacz < slownik_UTF8.txt | LC_ALL=C sort | ./grupuj | awk 'NF > 1' | sort -k2 > wynik_tylkoAnagramy.txt
+
