@@ -1,6 +1,6 @@
 
 To get anagrams: 
 
-./oznacz < slownik_UTF8.txt | LC_ALL=C sort | ./grupuj | awk 'NF > 1' | sort -k1 > wynik_tylkoAnagramy.txt
+./oznacz < slownik_UTF8.txt | LC_ALL=C sort | ./grupuj | awk 'NF > 1' | sort -k1 > wynik.txt
 
  
