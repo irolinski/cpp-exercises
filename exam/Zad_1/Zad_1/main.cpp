@@ -1,6 +1,9 @@
 #include <iostream>
 
 #define MAX_STUDENTS 100
+#define MAX_CHAR_NAME 50
+#define MAX_STUDENT_AGE 30
+#define MAX_GRADE 100
 //walidacja id dodatnie
 //walidacja grade <= 6
 //walidacja age <= 26
@@ -57,6 +60,15 @@ public:
 };
 
 class AddStudent : public StudentOperation {
+private:
+    static int countCharacters(char tempPlate[]) {
+        int count = 0;
+        while (tempPlate[count] != '\0' && count < 8) {
+            count++;
+        }
+        return count;
+    }
+
 public:
     void execute(Student students[], int& studentCount) override {
         if (studentCount >= MAX_STUDENTS) {
@@ -68,9 +80,18 @@ public:
         float grade;
         char name[50];
 
-        std::cout << "\nEnter the student's ID: ";
-        std::cin >> id;
-
+        while (true){
+            std::cout << "\nEnter the student's ID: ";
+            std::cin >> id;
+            
+            if (id > 0){
+                break;
+            } else {
+                std::cout << "ID has to be larger than 0! Try again!";
+            }
+        }
+        
+        //check if ID is not taken
         for (int i = 0; i < studentCount; i++) {
             if (students[i].getId() == id) {
                 std::cout << "\nError: A student with ID " << id << " already exists!\n";
@@ -78,13 +99,42 @@ public:
             }
         }
 
-        std::cout << "\nEnter the student's name: ";
-        std::cin.ignore();
-        std::cin.getline(name, 50);
-        std::cout << "\nEnter the student's age: ";
-        std::cin >> age;
-        std::cout << "\nEnter the student's grade: ";
-        std::cin >> grade;
+        while (true){
+            std::cout << "\nEnter the student's name: ";
+            std::cin >> name;
+            
+            //Check character count
+            int nameLength = AddStudent::countCharacters(name);
+            if (nameLength > MAX_CHAR_NAME){
+                std::cout << "\nName too long! Try again!\n";
+            } else {
+                break;
+            }
+        }
+        
+        while (true){
+            std::cout << "\nEnter the student's age: ";
+            std::cin >> age;
+            
+            if (age > MAX_STUDENT_AGE){
+                std::cout << "\nStudent too old! Try again!\n";
+            } else {
+                break;
+
+            }
+        }
+        
+        while(true){
+            std::cout << "\nEnter the student's grade: ";
+            std::cin >> grade;
+            
+            if (grade <= MAX_GRADE){
+                break;
+            } else {
+                std::cout << "\nWrong grade number! Try again with umbers between 1 and 100.";
+
+            }
+        }
 
         students[studentCount++] = Student(id, name, age, grade);
         std::cout << "\nStudent added successfully!\n";
