@@ -4,10 +4,6 @@
 #define MAX_CHAR_NAME 50
 #define MAX_STUDENT_AGE 30
 #define MAX_GRADE 100
-//walidacja id dodatnie
-//walidacja grade <= 6
-//walidacja age <= 26
-//walidacja imie 49 znakow
 
 class Student {
 private:
@@ -61,9 +57,9 @@ public:
 
 class AddStudent : public StudentOperation {
 private:
-    static int countCharacters(char tempPlate[]) {
+    static int countCharacters(const char chars[]) {
         int count = 0;
-        while (tempPlate[count] != '\0' && count < 8) {
+        while (chars[count] != '\0' && count < MAX_CHAR_NAME) {
             count++;
         }
         return count;
@@ -116,8 +112,8 @@ public:
             std::cout << "\nEnter the student's age: ";
             std::cin >> age;
             
-            if (age > MAX_STUDENT_AGE){
-                std::cout << "\nStudent too old! Try again!\n";
+            if (age > MAX_STUDENT_AGE || age < 10){
+                std::cout << "\nStudent too old or too young! Try again!\n";
             } else {
                 break;
 
@@ -128,11 +124,10 @@ public:
             std::cout << "\nEnter the student's grade: ";
             std::cin >> grade;
             
-            if (grade <= MAX_GRADE){
-                break;
+            if (grade >= MAX_GRADE || grade < 1){
+                std::cout << "\nWrong grade number! Try again with umbers between 1 and 100.\n";
             } else {
-                std::cout << "\nWrong grade number! Try again with umbers between 1 and 100.";
-
+                break;
             }
         }
 
