@@ -47,7 +47,15 @@ class specialPlate : public licensePlate {
 
 public:
     specialPlate(char p[], int code) : licensePlate(p) {
+        isUsed = true;
         extraCode = code;
+        
+        int i = 0;
+        while (p[i] != '\0' && i < 7) {
+            plate[i] = p[i];
+            i++;
+        }
+        plate[i] = '\0'; // add null to the end
     }
 
     void showPlate() override {
@@ -91,12 +99,12 @@ void addPlate() {
         }
     }
     
-    //Enter isUsed status
+    //Enter isUsed status -- added to not assume that the plate is not used
     while (true){
         cout << "\nIs the plate currently in use? \n\n";
         cout << "0 = false; 1 = true\n";
         cout << "Choice: ";
-        cin >> isUsedInput;
+        cin >> isUsedInput; // need to validate if cin is int to prevent unexpected behavior
         if (isUsedInput == 0){
             isUsedValue = false;
             break;
